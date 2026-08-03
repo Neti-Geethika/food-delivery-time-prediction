@@ -61,7 +61,7 @@ Python · Pandas · NumPy · Scikit-learn · XGBoost · SHAP · Streamlit · Mat
 ## Repository Structure
 
 ```
-├── Food_Delivery_ETA_Prediction.ipynb   # Full analysis & model training notebook
+├── Food_Delivery_Time_Prediction.ipynb   # Full analysis & model training notebook
 ├── Food_Delivery_Times.csv              # Dataset
 ├── app.py                               # Streamlit deployment app
 ├── delivery_time_model.pkl              # Trained model
