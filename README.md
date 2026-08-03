@@ -50,7 +50,7 @@ SHAP analysis on the tuned model showed **distance and traffic level** as the st
 
 ## Live App
 
-🔗 *[Add your Streamlit Cloud link here once deployed]*
+🔗 https://food-delivery-time-prediction-whxjwfku5h8plawtnhimlf.streamlit.app/
 
 Users can input distance, weather, traffic, vehicle type, and time of day to get an instant predicted delivery time.
 
