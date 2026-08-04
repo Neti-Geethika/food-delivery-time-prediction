@@ -6,6 +6,10 @@ st.set_page_config(page_title="Food Delivery ETA Predictor", page_icon="🛵")
 
 model = joblib.load("delivery_time_model.pkl")
 model_columns = joblib.load("model_columns.pkl")
+scaler = joblib.load("scaler.pkl")
+# Whether this model was trained on scaled input (True for Linear/Ridge,
+# False for tree models like Random Forest / Gradient Boosting / XGBoost).
+uses_scaled_input = joblib.load("uses_scaled_input.pkl")
 
 st.title("🛵 Smart Food Delivery ETA Predictor")
 st.caption("Estimate delivery time from distance, weather, traffic, and courier details.")
@@ -46,7 +50,14 @@ if st.button("Predict Delivery Time"):
         # leaving all dummies at 0 for that feature IS the correct encoding.
 
     input_df = pd.DataFrame([row])[model_columns]
-    prediction = model.predict(input_df)[0]
+
+    # Apply the same scaling used during training, only if this model needs it
+    if uses_scaled_input:
+        model_input = scaler.transform(input_df)
+    else:
+        model_input = input_df
+
+    prediction = model.predict(model_input)[0]
 
     st.success(f"Estimated Delivery Time: **{prediction:.1f} minutes**")
 
