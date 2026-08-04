@@ -38,19 +38,21 @@ Food delivery platforms (like Swiggy, Zomato, Uber Eats) need to estimate delive
 |---|---|---|---|
 | **Linear Regression** | **5.83** | **8.67** | **0.831** |
 | Gradient Boosting | 6.49 | 9.23 | 0.808 |
-| XGBoost (tuned) | 6.22 | 8.94 | 0.820 |
+| XGBoost | 7.03 | 9.50 | 0.797 |
 | Random Forest | 6.59 | 9.51 | 0.796 |
 | Decision Tree | 10.41 | 14.90 | 0.500 |
 
-**Key finding:** Linear Regression outperformed every tree-based ensemble, including tuned XGBoost. This suggests the relationship between delivery time and its drivers (distance, traffic, weather) is largely linear in this dataset — the added complexity of boosting/bagging didn't translate into better generalization. Rather than defaulting to the most complex model, the simplest model that performs best was selected for deployment.
+**Key finding:** Linear Regression outperformed every tree-based ensemble. This suggests the relationship between delivery time and its drivers (distance, traffic, weather) is largely linear in this dataset — the added complexity of boosting/bagging didn't translate into better generalization.
+
+**Final deployed model:** Rather than defaulting to a more complex model, the winning approach — Linear Regression — was carried through tuning and deployment for consistency. It was fine-tuned as **Ridge Regression** (`alpha = 5`), which adds light regularization on top of the same linear approach without changing its core behavior. Final tuned performance: **MAE 5.86 min, RMSE 8.67, R² 0.831** — matching the untuned baseline almost exactly, confirming the simple linear relationship holds up well.
 
 ## Explainability (SHAP)
 
-SHAP analysis on the tuned model showed **distance and traffic level** as the strongest drivers of delivery time, followed by weather severity and preparation time. This confirms the model's predictions align with real-world delivery logic rather than spurious correlations.
+SHAP analysis on the final model showed **distance and preparation time** as the strongest drivers of delivery time, followed by traffic and weather severity. This confirms the model's predictions align with real-world delivery logic rather than spurious correlations.
 
 ## Live App
 
-🔗 https://food-delivery-time-prediction-whxjwfku5h8plawtnhimlf.streamlit.app/
+🔗 *[Add your Streamlit Cloud link here once deployed]*
 
 Users can input distance, weather, traffic, vehicle type, and time of day to get an instant predicted delivery time.
 
